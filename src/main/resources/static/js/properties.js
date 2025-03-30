@@ -37,19 +37,19 @@ const renderProperties = (properties) => {
         textSection.classList.add('text-section');
 
         const heading = document.createElement('h2');
-        heading.textContent = property.address;
+        heading.textContent = sanitizeText(property.address); // Sanitize the address
         textSection.appendChild(heading);
 
         const sizePara = document.createElement('p');
-        sizePara.innerHTML = `<strong>Size:</strong> ${property.size} m²`;
+        sizePara.textContent = `Size: ${sanitizeText(property.size)} m²`; // Use textContent for dynamic data
         textSection.appendChild(sizePara);
 
         const descriptionPara = document.createElement('p');
-        descriptionPara.innerHTML = `<strong>Description:</strong> ${property.description}`;
+        descriptionPara.textContent = `Description: ${sanitizeText(property.description)}`; // Sanitize description
         textSection.appendChild(descriptionPara);
 
         const pricePara = document.createElement('p');
-        pricePara.innerHTML = `<strong>Price:</strong> $${property.price.toLocaleString()}`;
+        pricePara.textContent = `Price: $${sanitizeText(property.price.toLocaleString())}`; // Sanitize price
         textSection.appendChild(pricePara);
 
         const calendarDiv = document.createElement('div');
@@ -109,7 +109,6 @@ async function create(event) {
     };
 
     try {
-
         const csrf = await getCsrfToken();
         const response = await fetch("/api/v1/properties", {
             method: "POST",
@@ -135,7 +134,6 @@ async function updateProperty(propertyId){
     const url = `/api/v1/properties/${propertyId}`;
     fetchproperty(url,propertyId);
 };
-
 
 async function fetchproperty(url,propertyId) {
     try {
@@ -186,7 +184,7 @@ async function renderproperty(property,propertyId) {
     addressInput.setAttribute('type', 'text');
     addressInput.setAttribute('id', 'address');
     addressInput.setAttribute('name', 'address');
-    addressInput.value = property.address;
+    addressInput.value = sanitizeText(property.address); // Sanitize address
     addressInput.required = true;
     form.appendChild(addressInput);
 
@@ -228,7 +226,7 @@ async function renderproperty(property,propertyId) {
     descriptionTextarea.setAttribute('id', 'description');
     descriptionTextarea.setAttribute('name', 'description');
     descriptionTextarea.required = true;
-    descriptionTextarea.textContent = property.description;
+    descriptionTextarea.textContent = sanitizeText(property.description); // Sanitize description
     form.appendChild(descriptionTextarea);
 
     // Buttons container
@@ -302,21 +300,30 @@ async function deleteProperty(propertyId) {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    "X-CSRF-TOKEN": csrf
+                    'X-CSRF-TOKEN': csrf
                 },
             });
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || "Error al eliminar la propiedad");
 
+            if (!response.ok) {
+                throw new Error('Error deleting property');
             }
-            alert("Procedimiento eliminado correctamente");
-            window.location.href = `/home`;
+
+            alert('Property deleted successfully!');
+            window.location.href = '/home';
         } catch (error) {
-            console.error('Error al eliminar procedimiento:', error);
-            showNotification(error.message || 'Hubo un problema al intentar eliminar la propiedad. Intenta más tarde.');
+            console.error('Error deleting property:', error);
+            alert('There was an error deleting the property. Please try again.');
         }
     }
+}
+
+const sanitizeText = (text) => {
+    const element = document.createElement('div');
+    if (text) {
+        element.innerText = text;
+        return element.innerHTML; // This safely escapes the content
+    }
+    return '';
 };
 
 document.addEventListener("DOMContentLoaded", () => {
