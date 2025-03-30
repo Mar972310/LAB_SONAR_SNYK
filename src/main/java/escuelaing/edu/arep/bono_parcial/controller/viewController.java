@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * Controller to handle view navigation.
  */
 @Controller
-public class viewController {
+public class ViewController {
 
     /**
      * Maps the "/home" endpoint to return the "inmobiliaria" view.
