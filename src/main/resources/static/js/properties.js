@@ -62,15 +62,17 @@ const renderProperties = (properties) => {
     });
 };
 
-async function getCsrfToken() {
-    const response = await fetch('/api/v1/csrf-token');
-    const data = await response.json();
-    return data.csrfToken;
+function getCsrfToken() {
+    return document.cookie
+        .split('; ')
+        .find(row => row.startsWith('XSRF-TOKEN='))
+        ?.split('=')[1];
 }
+
 
 async function create(event) {
     event.preventDefault();  
-    const csrfToken = await getCsrfToken();
+    
 
 
     const formData = new FormData(document.querySelector(".property-form")); 
@@ -83,10 +85,10 @@ async function create(event) {
 
     try {
         
-        const response = await fetch("/api/v1/properties/create", {
+        const response = await fetch("/api/v1/properties", {
             method: "POST",
             headers: { "Content-Type": "application/json" ,
-                'X-CSRF-TOKEN': csrfToken
+                'X-CSRF-TOKEN': getCsrfToken()
             },
             body: JSON.stringify(propertyData)  
         });
@@ -177,8 +179,7 @@ async function renderproperty(property,propertyId) {
 };
 
 async function update(propertyId) {  
-    const url = `/api/v1/properties/update/${propertyId}`;
-    const csrfToken = await getCsrfToken();
+    const url = `/api/v1/properties/${propertyId}`;
     const formData = new FormData(document.querySelector(".property-form")); 
     const propertyData = {
         address: formData.get("address"),
@@ -191,7 +192,7 @@ async function update(propertyId) {
         const response = await fetch(url, {
             method: "PUT",
             headers: { "Content-Type": "application/json",
-                'X-CSRF-TOKEN': csrfToken
+                'X-CSRF-TOKEN': getCsrfToken()
              },
             body: JSON.stringify(propertyData)  
         });
@@ -208,7 +209,7 @@ async function update(propertyId) {
 
 async function deleteProperty(propertyId) {
     const confirmDelete = confirm("¿Estás seguro de que deseas eliminar esta propiedad?");
-    const url = `/api/v1/properties/delete/${propertyId}`;
+    const url = `/api/v1/properties/${propertyId}`;
     if (confirmDelete) {
         try {
             const response = await fetch(url, {
