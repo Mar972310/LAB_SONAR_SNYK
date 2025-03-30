@@ -34,8 +34,7 @@ public class PropertyController {
                                             @RequestHeader("X-CSRF-TOKEN") String csrfToken, 
                                             HttpSession session) {
         String sessionToken = (String) session.getAttribute("csrfToken");
-        System.out.println("CSRF recibido: " + csrfToken);
-        System.out.println("CSRF en sesión: " + sessionToken);
+        
 
         if (!csrfToken.equals(sessionToken)) {
             return ResponseEntity.status(403).body("Invalid CSRF token");
@@ -67,7 +66,8 @@ public class PropertyController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateProperty(@PathVariable Long id, @RequestBody PropertyDTO property, @RequestHeader("X-CSRF-TOKEN") String csrfToken, HttpSession session) {
+    public ResponseEntity<?> updateProperty(@PathVariable Long id, @RequestBody PropertyDTO property, 
+                                            @RequestHeader("X-CSRF-TOKEN") String csrfToken, HttpSession session) {
         if (!csrfToken.equals(session.getAttribute("csrfToken"))) {
             return ResponseEntity.status(403).body("Invalid CSRF token");
         }
