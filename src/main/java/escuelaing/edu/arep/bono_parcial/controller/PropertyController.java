@@ -2,6 +2,7 @@ package escuelaing.edu.arep.bono_parcial.controller;
 
 import java.util.List;
 import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,8 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/api/v1/properties")
 public class PropertyController {
 
+    private static final String CSRF_TOKEN = "csrfToken";
+    
     private final PropertyService propertyService;
 
     @Autowired
@@ -25,7 +28,7 @@ public class PropertyController {
     @GetMapping("/csrf-token")
     public ResponseEntity<String> getCsrfToken(HttpSession session) {
         String csrfToken = UUID.randomUUID().toString();
-        session.setAttribute("csrfToken", csrfToken);
+        session.setAttribute(CSRF_TOKEN, csrfToken);
         return ResponseEntity.ok(csrfToken);
     }
 
@@ -33,17 +36,16 @@ public class PropertyController {
     public ResponseEntity<PropertyDTO> createProperty(@RequestBody PropertyDTO property, 
                                                       @RequestHeader("X-CSRF-TOKEN") String csrfToken, 
                                                       HttpSession session) {
-        String sessionToken = (String) session.getAttribute("csrfToken");
-
+        String sessionToken = (String) session.getAttribute(CSRF_TOKEN);
         if (!csrfToken.equals(sessionToken)) {
-            return ResponseEntity.status(403).body(null);
+            return ResponseEntity.status(403).build();
         }
 
         try {
             PropertyDTO propertySave = propertyService.createProperty(property);
             return ResponseEntity.status(201).body(propertySave);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -59,7 +61,7 @@ public class PropertyController {
             PropertyDTO property = propertyService.getProperty(id);
             return ResponseEntity.ok(property);
         } catch (PropertyException e) {
-            return ResponseEntity.status(404).body(null);
+            return ResponseEntity.status(404).build();
         }
     }
 
@@ -68,31 +70,31 @@ public class PropertyController {
                                                       @RequestBody PropertyDTO property, 
                                                       @RequestHeader("X-CSRF-TOKEN") String csrfToken, 
                                                       HttpSession session) {
-        if (!csrfToken.equals(session.getAttribute("csrfToken"))) {
-            return ResponseEntity.status(403).body(null);
+        if (!csrfToken.equals(session.getAttribute(CSRF_TOKEN))) {
+            return ResponseEntity.status(403).build();
         }
         try {
             PropertyDTO propertyUpdate = propertyService.updateProperty(id, property);
             return ResponseEntity.ok(propertyUpdate);
         } catch (PropertyException e) {
-            return e.getMessage().equals(PropertyException.PROPERTY_NOT_UPDATE)
-                ? ResponseEntity.status(400).body(null)
-                : ResponseEntity.status(404).body(null);
+            return e.getMessage().equals(PropertyException.PROPERTY_NOT_UPDATE) 
+                ? ResponseEntity.status(400).build() 
+                : ResponseEntity.status(404).build();
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProperty(@PathVariable Long id, 
-                                                 @RequestHeader("X-CSRF-TOKEN") String csrfToken, 
-                                                 HttpSession session) {
-        if (!csrfToken.equals(session.getAttribute("csrfToken"))) {
-            return ResponseEntity.status(403).body("Invalid CSRF token");
+    public ResponseEntity<Void> deleteProperty(@PathVariable Long id, 
+                                               @RequestHeader("X-CSRF-TOKEN") String csrfToken, 
+                                               HttpSession session) {
+        if (!csrfToken.equals(session.getAttribute(CSRF_TOKEN))) {
+            return ResponseEntity.status(403).build();
         }
         try {
             propertyService.deleteProperty(id);
-            return ResponseEntity.ok("Deleted successfully");
+            return ResponseEntity.ok().build();
         } catch (PropertyException e) {
-            return ResponseEntity.status(404).body(e.getMessage());
+            return ResponseEntity.status(404).build();
         }
     }
 }
