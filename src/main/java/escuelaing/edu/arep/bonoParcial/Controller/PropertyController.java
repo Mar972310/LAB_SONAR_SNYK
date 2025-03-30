@@ -25,9 +25,7 @@ public class PropertyController {
     public ResponseEntity<?> getCsrfToken(HttpSession session) {
         String csrfToken = UUID.randomUUID().toString();
         session.setAttribute("csrfToken", csrfToken);
-        
-        // Corrected JSON format
-        return ResponseEntity.ok().body("{\"csrfToken\": \"" + csrfToken + "\"}");
+        return ResponseEntity.ok().body(csrfToken);
     }
 
 
