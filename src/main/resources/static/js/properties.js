@@ -37,19 +37,19 @@ const renderProperties = (properties) => {
         textSection.classList.add('text-section');
 
         const heading = document.createElement('h2');
-        heading.textContent = sanitizeText(property.address); // Sanitize the address
+        heading.textContent = sanitizeText(property.address); 
         textSection.appendChild(heading);
 
         const sizePara = document.createElement('p');
-        sizePara.textContent = `Size: ${sanitizeText(property.size)} m²`; // Use textContent for dynamic data
+        sizePara.textContent = `Size: ${sanitizeText(property.size)} m²`; 
         textSection.appendChild(sizePara);
 
         const descriptionPara = document.createElement('p');
-        descriptionPara.textContent = `Description: ${sanitizeText(property.description)}`; // Sanitize description
+        descriptionPara.textContent = `Description: ${sanitizeText(property.description)}`; 
         textSection.appendChild(descriptionPara);
 
         const pricePara = document.createElement('p');
-        pricePara.textContent = `Price: $${sanitizeText(property.price.toLocaleString())}`; // Sanitize price
+        pricePara.textContent = `Price: $${sanitizeText(property.price.toLocaleString())}`; 
         textSection.appendChild(pricePara);
 
         const calendarDiv = document.createElement('div');
@@ -88,6 +88,16 @@ const renderProperties = (properties) => {
 };
 
 async function getCsrfToken() {
+    try {
+        const response = await fetch("/api/v1/properties/csrf-token");
+        return await response.text();
+    } catch (error) {
+        console.error("Error fetching CSRF token:", error);
+        return null;
+    }
+}
+
+async function getCfToken() {
     try {
         const response = await fetch("/api/v1/properties/csrf-token");
         return await response.text();
