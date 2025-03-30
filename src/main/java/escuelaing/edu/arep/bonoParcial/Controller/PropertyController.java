@@ -27,6 +27,7 @@ public class PropertyController {
      * @param property PropertyDTO containing property details.
      * @return ResponseEntity with the created property or an error message.
      */
+    //Hola
     @PostMapping("/create")
     public ResponseEntity<?> createProperty(@RequestBody PropertyDTO property) {
         try {
