@@ -23,32 +23,29 @@ public class PropertyController {
     }
 
     @GetMapping("/csrf-token")
-    public ResponseEntity<?> getCsrfToken(HttpSession session) {
+    public ResponseEntity<String> getCsrfToken(HttpSession session) {
         String csrfToken = UUID.randomUUID().toString();
         session.setAttribute("csrfToken", csrfToken);
-        return ResponseEntity.ok().body(csrfToken);
+        return ResponseEntity.ok(csrfToken);
     }
 
-
     @PostMapping
-    public ResponseEntity<?> createProperty(@RequestBody PropertyDTO property, 
-                                            @RequestHeader("X-CSRF-TOKEN") String csrfToken, 
-                                            HttpSession session) {
+    public ResponseEntity<PropertyDTO> createProperty(@RequestBody PropertyDTO property, 
+                                                      @RequestHeader("X-CSRF-TOKEN") String csrfToken, 
+                                                      HttpSession session) {
         String sessionToken = (String) session.getAttribute("csrfToken");
-        
 
         if (!csrfToken.equals(sessionToken)) {
-            return ResponseEntity.status(403).body("Invalid CSRF token");
+            return ResponseEntity.status(403).body(null);
         }
 
         try {
             PropertyDTO propertySave = propertyService.createProperty(property);
             return ResponseEntity.status(201).body(propertySave);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error create property");
+            return ResponseEntity.badRequest().body(null);
         }
     }
-
 
     @GetMapping("/all")
     public ResponseEntity<List<PropertyDTO>> allProperty() {
@@ -57,36 +54,37 @@ public class PropertyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getProperty(@PathVariable Long id) {
+    public ResponseEntity<PropertyDTO> getProperty(@PathVariable Long id) {
         try {
             PropertyDTO property = propertyService.getProperty(id);
             return ResponseEntity.ok(property);
         } catch (PropertyException e) {
-            return ResponseEntity.status(404).body(e.getMessage());
+            return ResponseEntity.status(404).body(null);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateProperty(@PathVariable Long id, @RequestBody PropertyDTO property, 
-                                            @RequestHeader("X-CSRF-TOKEN") String csrfToken, HttpSession session) {
+    public ResponseEntity<PropertyDTO> updateProperty(@PathVariable Long id, 
+                                                      @RequestBody PropertyDTO property, 
+                                                      @RequestHeader("X-CSRF-TOKEN") String csrfToken, 
+                                                      HttpSession session) {
         if (!csrfToken.equals(session.getAttribute("csrfToken"))) {
-            return ResponseEntity.status(403).body("Invalid CSRF token");
+            return ResponseEntity.status(403).body(null);
         }
         try {
             PropertyDTO propertyUpdate = propertyService.updateProperty(id, property);
             return ResponseEntity.ok(propertyUpdate);
         } catch (PropertyException e) {
-            String error = e.getMessage();
-            if (error.equals(PropertyException.PROPERTY_NOT_UPDATE)) {
-                return ResponseEntity.status(400).body(e.getMessage());
-            } else {
-                return ResponseEntity.status(404).body(e.getMessage());
-            }
+            return e.getMessage().equals(PropertyException.PROPERTY_NOT_UPDATE)
+                ? ResponseEntity.status(400).body(null)
+                : ResponseEntity.status(404).body(null);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProperty(@PathVariable Long id, @RequestHeader("X-CSRF-TOKEN") String csrfToken, HttpSession session) {
+    public ResponseEntity<String> deleteProperty(@PathVariable Long id, 
+                                                 @RequestHeader("X-CSRF-TOKEN") String csrfToken, 
+                                                 HttpSession session) {
         if (!csrfToken.equals(session.getAttribute("csrfToken"))) {
             return ResponseEntity.status(403).body("Invalid CSRF token");
         }
