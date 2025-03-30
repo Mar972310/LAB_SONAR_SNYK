@@ -62,9 +62,16 @@ const renderProperties = (properties) => {
     });
 };
 
+async function getCsrfToken() {
+    const response = await fetch('/api/v1/csrf-token');
+    const data = await response.json();
+    return data.csrfToken;
+}
 
 async function create(event) {
     event.preventDefault();  
+    const csrfToken = await getCsrfToken();
+
 
     const formData = new FormData(document.querySelector(".property-form")); 
     const propertyData = {
@@ -78,7 +85,9 @@ async function create(event) {
         
         const response = await fetch("/api/v1/properties/create", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json" ,
+                'X-CSRF-TOKEN': csrfToken
+            },
             body: JSON.stringify(propertyData)  
         });
 
@@ -169,6 +178,7 @@ async function renderproperty(property,propertyId) {
 
 async function update(propertyId) {  
     const url = `/api/v1/properties/update/${propertyId}`;
+    const csrfToken = await getCsrfToken();
     const formData = new FormData(document.querySelector(".property-form")); 
     const propertyData = {
         address: formData.get("address"),
@@ -180,7 +190,9 @@ async function update(propertyId) {
         
         const response = await fetch(url, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",
+                'X-CSRF-TOKEN': csrfToken
+             },
             body: JSON.stringify(propertyData)  
         });
 
