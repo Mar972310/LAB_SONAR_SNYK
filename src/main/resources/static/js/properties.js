@@ -27,12 +27,12 @@ async function getAllProperties() {
 
 const renderProperties = (properties) => {
     const container = document.querySelector('.properties');
-    container.innerHTML = '';
+    container.textContent = '';
 
     properties.forEach(property => {
         const propertyElement = document.createElement('div');
         propertyElement.classList.add('property');
-        propertyElement.innerHTML = `
+        propertyElement.textContent = `
             <div class="text-section">
                 <h2>${property.address}</h2>
                 <p><strong>Size:</strong> ${property.size} m²</p>
@@ -132,9 +132,9 @@ async function fetchproperty(url,propertyId) {
 // Llenar la informacion del form 
 async function renderproperty(property,propertyId) {
     const propertyContainer = document.querySelector('.box-static');
-    propertyContainer.innerHTML = '';
+    propertyContainer.textContent = '';
 
-    propertyContainer.innerHTML = `
+    propertyContainer.textContent = `
         <form class="property-form">
             <h2>Update a Property</h2>
             <label for="address">Address</label>
