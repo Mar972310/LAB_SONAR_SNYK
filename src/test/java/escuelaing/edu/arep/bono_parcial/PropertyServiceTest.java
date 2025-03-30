@@ -1,4 +1,4 @@
-package escuelaing.edu.arep.bonoParcial;
+package escuelaing.edu.arep.bono_parcial;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,17 +9,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import escuelaing.edu.arep.bonoParcial.DTO.PropertyDTO;
-import escuelaing.edu.arep.bonoParcial.Exception.PropertyException;
-import escuelaing.edu.arep.bonoParcial.Repository.PropertyRepository;
-import escuelaing.edu.arep.bonoParcial.Service.Impl.PropertyService;
-import escuelaing.edu.arep.bonoParcial.model.Property;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import escuelaing.edu.arep.bono_parcial.dto.PropertyDTO;
+import escuelaing.edu.arep.bono_parcial.exception.PropertyException;
+import escuelaing.edu.arep.bono_parcial.model.Property;
+import escuelaing.edu.arep.bono_parcial.repository.PropertyRepository;
+import escuelaing.edu.arep.bono_parcial.service.impl.PropertyService;
 
 @ExtendWith(MockitoExtension.class)
 public class PropertyServiceTest {

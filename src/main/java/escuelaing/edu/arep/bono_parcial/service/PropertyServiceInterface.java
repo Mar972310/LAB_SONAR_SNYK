@@ -1,9 +1,9 @@
-package escuelaing.edu.arep.bonoParcial.Service;
+package escuelaing.edu.arep.bono_parcial.service;
 
 import java.util.List;
 
-import escuelaing.edu.arep.bonoParcial.DTO.PropertyDTO;
-import escuelaing.edu.arep.bonoParcial.Exception.PropertyException;
+import escuelaing.edu.arep.bono_parcial.dto.PropertyDTO;
+import escuelaing.edu.arep.bono_parcial.exception.PropertyException;
 
 
 public interface PropertyServiceInterface {
@@ -18,6 +18,4 @@ public interface PropertyServiceInterface {
 
     void deleteProperty(Long id) throws PropertyException;
 
-
-    
 } 

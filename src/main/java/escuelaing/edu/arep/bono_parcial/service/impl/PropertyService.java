@@ -1,4 +1,4 @@
-package escuelaing.edu.arep.bonoParcial.Service.Impl;
+package escuelaing.edu.arep.bono_parcial.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,11 +6,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import escuelaing.edu.arep.bonoParcial.DTO.PropertyDTO;
-import escuelaing.edu.arep.bonoParcial.Exception.PropertyException;
-import escuelaing.edu.arep.bonoParcial.Repository.PropertyRepository;
-import escuelaing.edu.arep.bonoParcial.Service.PropertyServiceInterface;
-import escuelaing.edu.arep.bonoParcial.model.Property;
+import escuelaing.edu.arep.bono_parcial.dto.PropertyDTO;
+import escuelaing.edu.arep.bono_parcial.exception.PropertyException;
+import escuelaing.edu.arep.bono_parcial.model.Property;
+import escuelaing.edu.arep.bono_parcial.repository.PropertyRepository;
+import escuelaing.edu.arep.bono_parcial.service.PropertyServiceInterface;
 
 /**
  * Implementation of the PropertyServiceInterface.

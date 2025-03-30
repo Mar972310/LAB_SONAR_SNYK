@@ -1,4 +1,4 @@
-package escuelaing.edu.arep.bonoParcial.model;
+package escuelaing.edu.arep.bono_parcial.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

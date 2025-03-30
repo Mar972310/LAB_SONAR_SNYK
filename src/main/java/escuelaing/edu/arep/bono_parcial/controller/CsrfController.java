@@ -1,4 +1,4 @@
-package escuelaing.edu.arep.bonoParcial.Controller;
+package escuelaing.edu.arep.bono_parcial.controller;
 
 import java.util.UUID;
 import org.springframework.web.bind.annotation.GetMapping;

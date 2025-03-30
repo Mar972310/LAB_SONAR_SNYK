@@ -1,4 +1,4 @@
-package escuelaing.edu.arep.bonoParcial;
+package escuelaing.edu.arep.bono_parcial;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -14,10 +14,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import escuelaing.edu.arep.bonoParcial.Controller.PropertyController;
-import escuelaing.edu.arep.bonoParcial.DTO.PropertyDTO;
-import escuelaing.edu.arep.bonoParcial.Exception.PropertyException;
-import escuelaing.edu.arep.bonoParcial.Service.Impl.PropertyService;
+import escuelaing.edu.arep.bono_parcial.controller.PropertyController;
+import escuelaing.edu.arep.bono_parcial.dto.PropertyDTO;
+import escuelaing.edu.arep.bono_parcial.exception.PropertyException;
+import escuelaing.edu.arep.bono_parcial.service.impl.PropertyService;
 import jakarta.servlet.http.HttpSession;
 
 class PropertyControllerTest {

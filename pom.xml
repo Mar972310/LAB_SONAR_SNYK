@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>escuelaing.edu.arep</groupId>
-	<artifactId>bonoParcial</artifactId>
+	<artifactId>bono_parcial</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bonoParcial</name>
+	<name>bono_parcial</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

@@ -1,4 +1,4 @@
-package escuelaing.edu.arep.bonoParcial.Controller;
+package escuelaing.edu.arep.bono_parcial.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

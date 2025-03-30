@@ -1,13 +1,14 @@
-package escuelaing.edu.arep.bonoParcial.Controller;
+package escuelaing.edu.arep.bono_parcial.controller;
 
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import escuelaing.edu.arep.bonoParcial.DTO.PropertyDTO;
-import escuelaing.edu.arep.bonoParcial.Exception.PropertyException;
-import escuelaing.edu.arep.bonoParcial.Service.Impl.PropertyService;
+
+import escuelaing.edu.arep.bono_parcial.dto.PropertyDTO;
+import escuelaing.edu.arep.bono_parcial.exception.PropertyException;
+import escuelaing.edu.arep.bono_parcial.service.impl.PropertyService;
 import jakarta.servlet.http.HttpSession;
 
 @RestController

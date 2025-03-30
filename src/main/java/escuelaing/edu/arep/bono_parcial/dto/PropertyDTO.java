@@ -1,4 +1,4 @@
-package escuelaing.edu.arep.bonoParcial.DTO;
+package escuelaing.edu.arep.bono_parcial.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

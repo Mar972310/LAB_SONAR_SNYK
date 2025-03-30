@@ -1,4 +1,4 @@
-package escuelaing.edu.arep.bonoParcial.Exception;
+package escuelaing.edu.arep.bono_parcial.exception;
 
 /**
  * Custom exception class for property-related errors.

@@ -1,4 +1,4 @@
-package escuelaing.edu.arep.bonoParcial;
+package escuelaing.edu.arep.bono_parcial;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
