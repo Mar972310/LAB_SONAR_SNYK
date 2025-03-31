@@ -1,15 +1,14 @@
 package escuelaing.edu.arep.bono_parcial.controller;
 
 import java.util.List;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
-
 import escuelaing.edu.arep.bono_parcial.dto.PropertyDTO;
 import escuelaing.edu.arep.bono_parcial.exception.PropertyException;
 import escuelaing.edu.arep.bono_parcial.service.impl.PropertyService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
@@ -26,10 +25,9 @@ public class PropertyController {
     }
 
     @GetMapping("/csrf-token")
-    public ResponseEntity<String> getCsrfToken(HttpSession session) {
-        String csrfToken = UUID.randomUUID().toString();
-        session.setAttribute(CSRF_TOKEN, csrfToken);
-        return ResponseEntity.ok(csrfToken);
+    public ResponseEntity<String> getCsrfToken(HttpServletRequest request) {
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+        return ResponseEntity.ok(csrfToken.getToken());
     }
 
     @PostMapping

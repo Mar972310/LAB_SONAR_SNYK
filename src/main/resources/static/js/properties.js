@@ -89,13 +89,17 @@ const renderProperties = (properties) => {
 
 async function getCsrfToken() {
     try {
-        const response = await fetch("/api/v1/properties/csrf-token");
-        return await response.text();
+        const response = await fetch("/api/v1/properties/csrf-token", {
+            method: "GET",
+        });
+        const data = await response.json();
+        return data.token;  
     } catch (error) {
         console.error("Error fetching CSRF token:", error);
         return null;
     }
 }
+
 
 
 async function create(event) {
