@@ -23,7 +23,7 @@ import escuelaing.edu.arep.bono_parcial.repository.PropertyRepository;
 import escuelaing.edu.arep.bono_parcial.service.impl.PropertyService;
 
 @ExtendWith(MockitoExtension.class)
-public class PropertyServiceTest {
+class PropertyServiceTest {
 
     @Mock
     private PropertyRepository propertyRepository;
