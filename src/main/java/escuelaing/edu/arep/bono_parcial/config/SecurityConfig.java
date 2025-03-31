@@ -12,7 +12,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
             .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/**") // No aplica CSRF a estas rutas
+                .ignoringRequestMatchers("/api/v1/properties/**") // No aplica CSRF a estas rutas
             )
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/**").permitAll()
