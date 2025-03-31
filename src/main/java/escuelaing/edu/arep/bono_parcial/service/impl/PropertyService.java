@@ -1,11 +1,8 @@
 package escuelaing.edu.arep.bono_parcial.service.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import escuelaing.edu.arep.bono_parcial.dto.PropertyDTO;
 import escuelaing.edu.arep.bono_parcial.exception.PropertyException;
 import escuelaing.edu.arep.bono_parcial.model.Property;
@@ -56,8 +53,7 @@ public class PropertyService implements PropertyServiceInterface {
      */
     @Override
     public List<PropertyDTO> getallProperties() {
-        List<Property> properties = propertyRepository.findAll();
-        return properties.stream().map(this::toDTO).collect(Collectors.toList());
+        return propertyRepository.findAll().stream().map(this::toDTO).toList();
     }
 
     /**
@@ -88,8 +84,8 @@ public class PropertyService implements PropertyServiceInterface {
     @Override
     public PropertyDTO updateProperty(Long id, PropertyDTO propertyDTO) throws PropertyException {
         Property property = propertyRepository.findById(id)
-                .orElseThrow(() -> new PropertyException("The property with ID " + id + " could not be updated because it does not exist"));
-        
+                .orElseThrow(() -> new PropertyException(PropertyException.PROPERTY_NOT_UPDATE));
+
         property.setAddress(propertyDTO.getAddress());
         property.setDescription(propertyDTO.getDescription());
         property.setPrice(propertyDTO.getPrice());
