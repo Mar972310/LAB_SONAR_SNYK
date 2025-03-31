@@ -130,8 +130,6 @@ async function create(event) {
 }
 
 async function updateProperty(propertyId){
-    const pathname = window.location.pathname;
-    const segments = pathname.split('/');
     const url = `/api/v1/properties/${propertyId}`;
     fetchproperty(url,propertyId);
 };
