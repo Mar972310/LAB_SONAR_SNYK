@@ -97,15 +97,6 @@ async function getCsrfToken() {
     }
 }
 
-async function getCfToken() {
-    try {
-        const response = await fetch("/api/v1/properties/csrf-token");
-        return await response.text();
-    } catch (error) {
-        console.error("Error fetching CSRF token:", error);
-        return null;
-    }
-}
 
 async function create(event) {
     event.preventDefault();
