@@ -124,6 +124,50 @@ h
       ![alt text](imagenes/update.png)
       ![alt text](imagenes/deleteMessagess.png)
 
+## 🛡️ Static Code Analysis & Security
+
+### 🔍 SonarCloud Integration
+
+This project integrates **[SonarCloud](https://sonarcloud.io/)** to perform **static code analysis**, aiming to maintain high code quality and consistency across the application. The analysis evaluates:
+
+- ✅ Code smells  
+- 🐞 Bugs  
+- 📈 Code coverage  
+- 🧾 Technical debt  
+- 🛠 Maintainability and reliability ratings
+
+**Benefits:**
+
+- Detects potential issues before deployment  
+- Encourages cleaner and more maintainable code  
+- Helps enforce coding standards and best practices  
+
+![SonarCloud Dashboard](imagenes/sonarcloud.png)
+
+---
+
+### 🔐 Snyk Vulnerability Scanning
+
+The project also uses **[Snyk](https://snyk.io/)** to identify and fix **security vulnerabilities** in dependencies (such as Maven libraries and Docker images).
+
+**Key Features:**
+
+- 🔄 Automatic scanning of `pom.xml` and Docker image for known CVEs  
+- 🚨 Real-time alerts for vulnerable packages  
+- 🛠 Fix recommendations provided directly in the CLI or dashboard  
+- 🧪 Tracks issues in **open-source libraries** commonly used in Java and Spring Boot projects
+
+**Result:**
+
+Thanks to this integration, the application maintains a strong **security posture**, minimizing the risk of exposure through third-party components.
+
+![Snyk Scan Example](imagenes/snyk.png)
+
+---
+
+✅ **Conclusion**:  
+The combination of **SonarCloud for code quality** and **Snyk for security auditing** ensures the Property Management System is robust, secure, and maintainable—ready for real-world deployment.
+
 
 ## Architecture
 
